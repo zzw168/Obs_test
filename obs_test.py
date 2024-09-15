@@ -1,6 +1,8 @@
 """
+    https://github.com/obsproject/obs-websocket/
     pip install obsws-python
     用法备注： .imagedata -> .image_data 每个命令的词之间加 _(下划线)，且字母都为小写
+    https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md
 """
 import base64
 import obsws_python as obs
