@@ -42,6 +42,10 @@ if __name__ == '__main__':
     cl_event.callback.register(on_current_program_scene_changed)    # 场景变化
     cl_event.callback.register(on_scene_item_enable_state_changed)  # 来源变化
 
+    cl_event.callback.register(on_record_state_changed)  # 录制状态
+    cl_event.callback.register(on_stream_state_changed)  # 直播流状态
+    cl_event.callback.register(on_get_stream_status)  # 直播流状态
+
     # SetCurrentProgramScene
     # cl.set_current_program_scene("终点")  # 切换终点场景
 
