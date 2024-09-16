@@ -39,7 +39,8 @@ if __name__ == '__main__':
     # 注册事件
     # cl_event.callback.register(on_scene_created)
     # 视图变化事件
-    cl_event.callback.register(on_current_program_scene_changed)
+    cl_event.callback.register(on_current_program_scene_changed)    # 场景变化
+    cl_event.callback.register(on_scene_item_enable_state_changed)  # 来源变化
 
     # SetCurrentProgramScene
     # cl.set_current_program_scene("终点")  # 切换终点场景
@@ -52,7 +53,7 @@ if __name__ == '__main__':
     # resp = cl.remove_scene('第一视图')
     # # 截取场景照片并保存
     # resp = cl.get_source_screenshot('终点', "jpg", None, None, 100)
-    # strToImage(resp.image_data, './a.jpg')
+    # str2image(resp.image_data, './a.jpg')
     # 提取场景内所有来源的列表
     # resp = cl.get_scene_item_list('现场')
     # print(resp.scene_items[0])
