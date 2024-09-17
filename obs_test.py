@@ -97,8 +97,9 @@ class MyUi(QMainWindow, Ui_MainWindow):
 
         tb_sources = self.tableWidget_Sources
         tb_sources.horizontalHeader().resizeSection(0, 10)
-        tb_sources.horizontalHeader().resizeSection(1, 80)
-        # tb_Step.setColumnHidden(3, True)
+        tb_sources.horizontalHeader().resizeSection(1, 160)
+        # tb_sources.horizontalHeader().resizeSection(2, 30)
+        tb_sources.setColumnHidden(2, True)
         tb_sources.horizontalHeader().setStyleSheet("QHeaderView::section{background:rgb(245,245,245);}")
         tb_sources.verticalHeader().setStyleSheet("QHeaderView::section{background:rgb(245,245,245);}")
 
@@ -153,11 +154,12 @@ def get_source_list(scene_name):
     res = cl_requst.get_scene_item_list(scene_name)
     source_list = []
     for item in res.scene_items:
-        source_list.append([item['sourceName'], item['sceneItemEnabled']])
-        print(source_list)
+        source_list.append([item['sceneItemEnabled'], item['sourceName'], item['sceneItemId']])
+        print(item)
     Source_Thead.start()
 
 
+# 数据进表
 def source2table():
     global source_list
     tb_sources = ui.tableWidget_Sources
@@ -165,19 +167,34 @@ def source2table():
     for i in range(0, len(source_list)):
         cb = QCheckBox()
         cb.setStyleSheet('QCheckBox{margin:6px};')
+        cb.clicked.connect(source_enable)
         tb_sources.setCellWidget(i, 0, cb)
-        if source_list[i][1] == True:
+        if source_list[i][0] == True:
             tb_sources.cellWidget(i, 0).setChecked(True)
         print(source_list[i][0])
-        item = QTableWidgetItem(str(source_list[i][0]))
-        item.setTextAlignment(Qt.AlignCenter)
-        # item.setFlags(QtCore.Qt.ItemFlag(63))   # 单元格可编辑
-        tb_sources.setItem(i, 1, item)
+        for j in range(1, len(source_list[i])):
+            item = QTableWidgetItem(str(source_list[i][j]))
+            item.setTextAlignment(Qt.AlignCenter)
+            # item.setFlags(QtCore.Qt.ItemFlag(63))   # 单元格可编辑
+            tb_sources.setItem(i, j, item)
 
 
 def scenes_change():  # 变换场景
     scene_name = ui.comboBox_Scenes.currentText()
     cl_requst.set_current_program_scene(scene_name)
+
+
+def source_enable():  # 开关来源
+    tb_source = ui.tableWidget_Sources
+    row_num = tb_source.currentRow()
+    source_list[row_num][0] = not (source_list[row_num][0])
+    source_enable = source_list[row_num][0]
+    cb_scene = ui.comboBox_Scenes
+    scene_name = cb_scene.currentText()
+    item_id = source_list[row_num][2]
+    print(source_list)
+    # # 打开,关闭来源
+    cl_requst.set_scene_item_enabled(scene_name, item_id, source_enable)  # 打开视频来源
 
 
 if __name__ == '__main__':
@@ -212,24 +229,7 @@ if __name__ == '__main__':
     resp = cl_requst.get_version()
     # Access it's field as an attribute
     print(f"OBS Version: {resp.obs_version}")
-    # 注册事件
-    # cl_event.callback.register(on_scene_created)
-    # 视图变化事件
 
-    # SetCurrentProgramScene
-    # cl.set_current_program_scene("终点")  # 切换终点场景
-
-    # # 查询返回json数据
-    # resp = cl.send("GetVersion", raw=True)
-    # print(f"response data: {resp}")
-    # # 创建视图，删除视图
-    # resp = cl.create_scene('第一视图')
-    # resp = cl.remove_scene('第一视图')
-    # 提取场景内所有来源的列表
-    # resp = cl.get_scene_item_list('现场')
-    # print(resp.scene_items[0])
-    # for item in resp.scene_items:
-    #     print(item['sourceName'])
     # # 打开,关闭来源
     # cl_requst.set_scene_item_enabled('现场', 8, True)  # 打开视频来源
 

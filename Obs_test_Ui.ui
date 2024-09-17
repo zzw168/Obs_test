@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1004</width>
+    <width>1164</width>
     <height>683</height>
    </rect>
   </property>
@@ -115,6 +115,11 @@
               <string>来源</string>
              </property>
             </column>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>
@@ -133,7 +138,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1004</width>
+     <width>1164</width>
      <height>23</height>
     </rect>
    </property>
