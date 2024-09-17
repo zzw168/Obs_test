@@ -221,6 +221,8 @@ if __name__ == '__main__':
 
     get_scenes_list()  # 获取所有场景
 
+    get_source_list(ui.comboBox_Scenes.currentText())
+
     ui.pushButton_GetPicture.clicked.connect(get_picture)
     ui.pushButton_ObsConnect.clicked.connect(get_source_list)
     ui.comboBox_Scenes.currentTextChanged.connect(scenes_change)
