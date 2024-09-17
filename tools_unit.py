@@ -16,6 +16,3 @@ def str2image(img):
     image_str = image_str.encode('ascii')
     image_byte = base64.b64decode(image_str)
     return image_byte
-
-
-
